@@ -1,0 +1,93 @@
+# 配置mybatis-plus
+mybatis-plus:
+  # 配置扫描xml
+  mapper-locations:
+    - classpath:mapper/*.xml
+  # 实体扫描，多个package用逗号或者分号分隔
+  type-aliases-package: com.glodbee.luckdraw.entity
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    idType: 0
+    # 逻辑删除配置
+    logic-delete-value: 0
+    logic-not-delete-value: 1
+    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+
+spring:
+    profiles: dev    #环境标识
+    application: 
+        name: luckdraw
+    datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        driver-class-name: com.mysql.jdbc.Driver
+        platform: mysql
+        url: jdbc:mysql://127.0.0.1:3306/luckdraw?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&verifyServerCertificate=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+        username: root
+        password: root
+        initialSize: 5
+        minIdle: 5
+        maxActive: 20
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        filters: 
+            stat:
+                enabled: true
+                logSlowSql: true
+                slow-sql-millis: 1000
+                merge-sql: true
+    servlet:
+        multipart:
+            max-file-size: 100MB #最大支持文件大小
+            max-request-size: 100MB # 最大支持请求大小
+
+    jackson:
+        date-format: yyyy-MM-dd HH:mm:ss
+        time-zone: GMT+8
+        default-property-inclusion: non_null
+        deserialization:
+            adjust_dates_to_context_time_zone: true
+    
+#日志
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    com.glodbee.luckdraw.dao.mapper: info     # 打印sql
+    
+###注意：springcloud feign 请求超时处理：高版本的springcloud-openfeign请求分为两层，先ribbon控制，后hystrix控制，hystrix默认处于关闭状态###
+#ribbon的超时时间配置
+ribbon:
+  ConnectTimeout: 8000    #ribbon的请求连接的超时时间
+  ReadTimeout: 60000    #ribbon的请求处理的超时时间 
+
+#打开feign-hystrix
+feign:
+  hystrix:
+    enabled: true
+  client: 
+    config:
+      default:
+        connectTimeout: 8000    #feign的请求连接的超时时间，修改配置为8s
+        readTimeout: 10000    #feign的请求处理的超时时间，修改配置为10s
+        
+#hystrix 超时时间配置
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true    #如果enabled设置为false，则请求超时交给ribbon控制
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000    #熔断器hystrix默认的超时时间是1s，所有是远远不够的，修改配置为10s
+    
+#网关地址
+api-gateway:
+  remote-addr: http://127.0.0.1
+    
