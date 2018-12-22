@@ -61,8 +61,8 @@ public class MessageServiceImpl implements MessageService {
 
 			// 文本消息
 			if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
-				String access_token= "16_y2cROlTpjJN7RTFdAi-Ar9AduBDHV3WFanFMthfwxdbF3aUjdFZknKYEKo3egGsn08KlaUdAZtD_P4BJjNBuIYHimeRlCKuuqe4AjV45uBO8h9crqHmr3f7axIfVueGwJfQZrAydxrO8misNNZUjAJATFA";
-				usersService.getUserInfoByOpenId(access_token, fromUserName);
+				String access_token= "16_VeZgA6jfgNx07WFJMCOT8wbJWUtA7GUeRVa1N4xmkTqKDLyg05VXW3Ee7SO_dWKVQvGCchwK3vhwAHKMJh_L1kaCi5wUxWHDOnAudhd4uJ9RW7qYw6CL2O4kmsQYUzlUsqJv9X0Vd3jKC7d2ZQHbAHAFWN";
+				usersService.getUserInfoByOpenIdAndSaveInfo(access_token, fromUserName);
 			}
 
 			// 图片消息

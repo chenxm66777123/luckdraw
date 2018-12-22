@@ -1,15 +1,26 @@
 package com.goldbee.luckdraw.service;
 
-import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.service.IService;
+import com.goldbee.luckdraw.entity.ResponseResult;
+import com.goldbee.luckdraw.entity.Users;
 
-public interface UsersService {
+/**
+ * <p>
+ * 用户信息表 服务类
+ * </p>
+ *
+ * @author chenxm66777123
+ * @since 2018-12-22
+ */
+public interface UsersService extends IService<Users> {
 
 	/**
-	 * @Description 通过openid获取用户信息
+	 * @Description 通过openid获取用户信息并保存
 	 * @author chenxm66777123
 	 * @Date 2018年12月20日
 	 * @version 1.0.0
 	 */
-	public String getUserInfoByOpenId(String access_token,String openId) ;
+	@SuppressWarnings("rawtypes")
+	public ResponseResult getUserInfoByOpenIdAndSaveInfo(String access_token,String openId) ;
 
 }
