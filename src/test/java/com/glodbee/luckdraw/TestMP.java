@@ -1,4 +1,4 @@
-/*package com.glodbee.luckdraw;
+package com.glodbee.luckdraw;
 
 import org.junit.Test;
 
@@ -13,9 +13,9 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 public class TestMP {
 
-	*//**
+	/**
 	 * 代码生成    示例代码
-	 *//*
+	 */
 	@Test
 	public void  testGenerator() {
 		//1. 全局配置
@@ -44,12 +44,12 @@ public class TestMP {
 				.setDbColumnUnderline(true)  // 指定表名 字段名是否使用下划线
 				.setNaming(NamingStrategy.underline_to_camel) // 数据库表映射到实体的命名策略
 				.setTablePrefix("t_")
-				.setInclude("users");  // 生成的表
+				.setInclude("access_token","menus");  // 生成的表
 
 
 		//4. 包名策略配置 
 		PackageConfig pkConfig = new PackageConfig();
-		pkConfig.setParent("com.bee.trade.business")
+		pkConfig.setParent("com.goldbee.luckdraw")
 		                .setMapper("dao.mapper")
 						.setService("service")
 						.setController("controller")
@@ -70,4 +70,3 @@ public class TestMP {
 
 
 }
-*/

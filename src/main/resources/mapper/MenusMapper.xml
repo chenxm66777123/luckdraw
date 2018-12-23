@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goldbee.luckdraw.dao.mapper.MenusMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.goldbee.luckdraw.entity.Menus">
+        <id column="id" property="id" />
+        <result column="pid" property="pid" />
+        <result column="key" property="key" />
+        <result column="name" property="name" />
+        <result column="content" property="content" />
+        <result column="type" property="type" />
+        <result column="btn_type" property="btnType" />
+        <result column="level" property="level" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, pid, key, name, content, type, btn_type, level, create_time
+    </sql>
+
+
+</mapper>

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.goldbee.luckdraw.service.MessageService;
 import com.goldbee.luckdraw.utils.CheckUtil;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class LoginController {
 
@@ -21,6 +23,7 @@ public class LoginController {
 	private MessageService messageService;
 
 	@GetMapping(value = "wx")
+	@ApiOperation(value="微信公众号开发者模式接入接口",notes="微信公众号开发者模式接入接口")
 	public void login(HttpServletRequest request, HttpServletResponse response) {
 		String signature = request.getParameter("signature");
 		String timestamp = request.getParameter("timestamp");
@@ -40,6 +43,7 @@ public class LoginController {
 	}
 
 	@PostMapping(value = "wx")
+	@ApiOperation(value="微信公众号开发者模式接受消息接口",notes="微信公众号开发者模式接入接口")
 	public void wechatServicePost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		// 在响应消息（回复消息给用户）时，也将编码方式设置为UTF-8，原理同上；

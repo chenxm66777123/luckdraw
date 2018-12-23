@@ -1,5 +1,7 @@
 package com.goldbee.luckdraw.entity;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,5 +21,5 @@ public class Button {
 	
 	private String type;//菜单的响应动作类型
 	
-	private Button[] sub_button;
+	private List<Button> sub_button;
 }

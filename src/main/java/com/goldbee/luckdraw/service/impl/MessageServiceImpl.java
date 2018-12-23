@@ -132,8 +132,10 @@ public class MessageServiceImpl implements MessageService {
 				}
 				// 自定义菜单（(自定义菜单URl视图)）
 				else if (eventType.equals(MessageUtil.EVENT_TYPE_VIEW)) {
+					respContent = "您发送的是图片消息！";
+					textMessage.setContent(respContent + content);
+					respMessage = MessageUtil.textMessageToXml(textMessage);
 				}
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -16,5 +16,7 @@ public class CommonConstant {
 	public static final String appId = "wx590602ef804f391d";
 
 	public static final String appsecret = "91c2ea3d0a52fbcaeeeb516a2596dc77";
+	
+	public static final String CTRATE_MENU_URL  = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
 
 }
