@@ -1,7 +1,7 @@
 package com.goldbee.luckdraw.service;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.goldbee.luckdraw.entity.ResponseResult;
+import com.goldbee.luckdraw.constant.enums.ResponseResult;
 import com.goldbee.luckdraw.entity.Users;
 
 /**

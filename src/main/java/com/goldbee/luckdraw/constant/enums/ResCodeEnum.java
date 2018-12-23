@@ -1,4 +1,4 @@
-package com.goldbee.luckdraw.entity;
+package com.goldbee.luckdraw.constant.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

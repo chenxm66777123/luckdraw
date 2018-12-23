@@ -2,7 +2,7 @@ package com.goldbee.luckdraw.utils;
 
 import java.util.Arrays;
 
-import com.goldbee.luckdraw.constant.enums.CommonConstant;
+import com.goldbee.luckdraw.constant.CommonConstant;
 
 public class CheckUtil {
 

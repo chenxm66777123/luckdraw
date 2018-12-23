@@ -1,4 +1,4 @@
-package com.goldbee.luckdraw.constant.enums;
+package com.goldbee.luckdraw.constant;
 
 /**
  * @ClassName Page

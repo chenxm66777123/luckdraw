@@ -5,29 +5,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * @Description 返回消息
+ * @Description 按钮
  * @author chenxm66777123
  * @Date 2018年12月23日
  * @version 1.0.0
  */
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class TextMessage {
+public class Button {
 
-	private String MsgType;
-
-	private String ToUserName;
-
-	private String FromUserName;
-
-	private long CreateTime;
-
-	private String Content;
-
-	private Integer FuncFlag;
+	private String name;//菜单标题
 	
-
-
+	private String type;//菜单的响应动作类型
+	
+	private Button[] sub_button;
 }
