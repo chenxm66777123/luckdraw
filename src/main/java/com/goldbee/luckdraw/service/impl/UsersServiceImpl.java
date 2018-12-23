@@ -8,12 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.goldbee.luckdraw.constant.enums.CommonConstant;
 import com.goldbee.luckdraw.dao.mapper.UsersMapper;
 import com.goldbee.luckdraw.entity.ResCodeEnum;
 import com.goldbee.luckdraw.entity.ResponseResult;
 import com.goldbee.luckdraw.entity.Users;
 import com.goldbee.luckdraw.service.UsersService;
-import com.goldbee.luckdraw.utils.RequestUtils;
+import com.goldbee.luckdraw.utils.WechatUtils;
 
 /**
  * <p>
@@ -39,11 +40,9 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
-	public ResponseResult getUserInfoByOpenIdAndSaveInfo(String access_token,String openId) {
-		String url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token="+access_token+"&openid="+openId+"&lang=zh_CN";
-		String msg = RequestUtils.sendGet(url, null);
-		System.out.println(msg);
-		JSONObject json = JSONObject.parseObject(msg);
+	public ResponseResult saveUserInfo(String openId) {
+		String access_token = WechatUtils.getAccessToken(CommonConstant.grant_type, CommonConstant.appId, CommonConstant.appsecret);
+		JSONObject json = WechatUtils.getUserInfoByOpenId(access_token, openId);
 		//openid
 		String openid = json.getString("openid");
 		//头像地址
@@ -52,13 +51,24 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 		String nickname = json.getString("nickname");
 		//微信昵称
 		String sex = json.getString("sex");
-		Users user = new Users();
-		user.setOpenid(openid);
-		user.setNickName(nickname);
-		user.setHeadimgurl(headimgurl);
-		user.setSex(sex);
-		user.setCreateTime(new Date());
-		usersMapper.insert(user);
+
+		Users returnUsers = usersMapper.selectOne(new Users().setOpenid(openid));
+		//已经存在不在添加
+		if(returnUsers == null) {
+			Users user = new Users();
+			user.setOpenid(openid);
+			user.setNickName(nickname);
+			user.setHeadimgurl(headimgurl);
+			user.setSex(sex);
+			user.setCreateTime(new Date());
+			usersMapper.insert(user);
+		}else {
+			returnUsers.setNickName(nickname);
+			returnUsers.setHeadimgurl(headimgurl);
+			returnUsers.setSex(sex);
+			returnUsers.setCreateTime(new Date());
+			usersMapper.updateById(returnUsers);
+		}
 		return ResponseResult.buildResponseResult(ResCodeEnum.SUCCESS);
 	}
 }

@@ -2,12 +2,13 @@ package com.goldbee.luckdraw.utils;
 
 import java.util.Arrays;
 
+import com.goldbee.luckdraw.constant.enums.CommonConstant;
+
 public class CheckUtil {
 
-	private static final String token = "goldbeeluckdraw";
 
 	public static boolean checkSignature(String signature, String timestamp, String nonce) {
-		String[] str = new String[] { token, timestamp, nonce };
+		String[] str = new String[] { CommonConstant.token, timestamp, nonce };
 		// 排序
 		Arrays.sort(str);
 		// 拼接字符串

@@ -15,12 +15,12 @@ import com.goldbee.luckdraw.entity.Users;
 public interface UsersService extends IService<Users> {
 
 	/**
-	 * @Description 通过openid获取用户信息并保存
+	 * @Description 保存用户信息
 	 * @author chenxm66777123
 	 * @Date 2018年12月20日
 	 * @version 1.0.0
 	 */
 	@SuppressWarnings("rawtypes")
-	public ResponseResult getUserInfoByOpenIdAndSaveInfo(String access_token,String openId) ;
+	public ResponseResult saveUserInfo(String openId) ;
 
 }

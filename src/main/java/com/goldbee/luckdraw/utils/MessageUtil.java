@@ -120,31 +120,6 @@ public class MessageUtil {
  
     
     
-    public static String processRequest(HttpServletRequest request) {
-        Map<String, String> map = xmlToMap(request);
-        // 发送方帐号（一个OpenID）
-        String fromUserName = map.get("FromUserName");
-        // 开发者微信号
-        String toUserName = map.get("ToUserName");
-        // 消息类型
-        String msgType = map.get("MsgType");
-        // 默认回复一个"success"
-        String responseMessage = "success";
-        // 对消息进行处理
-        if (MessageUtil.REQ_MESSAGE_TYPE_TEXT.equals(msgType)) {// 文本消息
-            TextMessage textMessage = new TextMessage();
-            textMessage.setMsgType(MessageUtil.REQ_MESSAGE_TYPE_TEXT);
-            textMessage.setToUserName(fromUserName);
-            textMessage.setFromUserName(toUserName);
-            textMessage.setCreateTime(System.currentTimeMillis());
-            textMessage.setContent("我已经受到你发来的消息了");
-            responseMessage = textMessageToXml(textMessage);
-        }
-        return responseMessage;
-    }
-
-    
-
    /**
               * 文本消息转化为xml
     * @param textMessage

@@ -2,7 +2,6 @@ package com.goldbee.luckdraw.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,40 +21,38 @@ public class LoginController {
 	private MessageService messageService;
 
 	@GetMapping(value = "wx")
-	public void login(HttpServletRequest request,HttpServletResponse response){
+	public void login(HttpServletRequest request, HttpServletResponse response) {
 		String signature = request.getParameter("signature");
 		String timestamp = request.getParameter("timestamp");
 		String nonce = request.getParameter("nonce");
 		String echostr = request.getParameter("echostr");
 		PrintWriter out = null;
 		try {
-			  out = response.getWriter();
-			if(CheckUtil.checkSignature(signature, timestamp, nonce)){
+			out = response.getWriter();
+			if (CheckUtil.checkSignature(signature, timestamp, nonce)) {
 				out.write(echostr);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			out.close();
 		}
 	}
-	
-	
-	@PostMapping(value = "wx")
-	public String wechatServicePost(HttpServletRequest request, HttpServletResponse response){
-				// 微信服务器POST消息时用的是UTF-8编码，在接收时也要用同样的编码，否则中文会乱码；
-				try {
-					request.setCharacterEncoding("UTF-8");
-					// 在响应消息（回复消息给用户）时，也将编码方式设置为UTF-8，原理同上；
-					response.setCharacterEncoding("UTF-8"); 
-					String respXml = messageService.messageHandel(request, response);
-				
-					return respXml;
 
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return "........."; 
+	@PostMapping(value = "wx")
+	public void wechatServicePost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+		// 在响应消息（回复消息给用户）时，也将编码方式设置为UTF-8，原理同上；
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+			String respXml = messageService.messageHandel(request, response);
+			out.println(respXml);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			out.close();
+		}
 	}
 }

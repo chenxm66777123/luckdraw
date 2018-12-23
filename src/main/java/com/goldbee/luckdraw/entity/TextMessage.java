@@ -1,65 +1,26 @@
 package com.goldbee.luckdraw.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class TextMessage {
 
-	private String msgType;
+	private String MsgType;
 
-	private String toUserName;
+	private String ToUserName;
 
-	private String fromUserName;
+	private String FromUserName;
 
-	private long createTime;
+	private long CreateTime;
 
-	private String content;
+	private String Content;
 
-	private Integer funcFlag;
+	private Integer FuncFlag;
 	
-	public String getMsgType() {
-		return msgType;
-	}
 
-	public void setMsgType(String msgType) {
-		this.msgType = msgType;
-	}
-
-	public String getToUserName() {
-		return toUserName;
-	}
-
-	public void setToUserName(String toUserName) {
-		this.toUserName = toUserName;
-	}
-
-	public String getFromUserName() {
-		return fromUserName;
-	}
-
-	public void setFromUserName(String fromUserName) {
-		this.fromUserName = fromUserName;
-	}
-
-	public long getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(long createTime) {
-		this.createTime = createTime;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public Integer getFuncFlag() {
-		return funcFlag;
-	}
-
-	public void setFuncFlag(Integer funcFlag) {
-		this.funcFlag = funcFlag;
-	}
 
 }

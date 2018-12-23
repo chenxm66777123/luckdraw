@@ -55,48 +55,50 @@ public class MessageServiceImpl implements MessageService {
 			textMessage.setFromUserName(toUserName);
 			textMessage.setCreateTime(new Date().getTime());
 			textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
-			textMessage.setFuncFlag(0);
+			//textMessage.setFuncFlag(0);
 
 			// 分析用户发送的消息类型，并作出相应的处理
 
 			// 文本消息
 			if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
-				String access_token= "16_VeZgA6jfgNx07WFJMCOT8wbJWUtA7GUeRVa1N4xmkTqKDLyg05VXW3Ee7SO_dWKVQvGCchwK3vhwAHKMJh_L1kaCi5wUxWHDOnAudhd4uJ9RW7qYw6CL2O4kmsQYUzlUsqJv9X0Vd3jKC7d2ZQHbAHAFWN";
-				usersService.getUserInfoByOpenIdAndSaveInfo(access_token, fromUserName);
+				usersService.saveUserInfo(fromUserName);
+				respContent = "您发送的是文本消息！";
+				textMessage.setContent(respContent + content);
+				respMessage = MessageUtil.textMessageToXml(textMessage);
 			}
 
 			// 图片消息
 			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
 				respContent = "您发送的是图片消息！";
-				textMessage.setContent(respContent);
+				textMessage.setContent(respContent + content);
 				respMessage = MessageUtil.textMessageToXml(textMessage);
 			}
 
 			// 语音消息
 			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)) {
 				respContent = "您发送的是语音消息！";
-				textMessage.setContent(respContent);
+				textMessage.setContent(respContent + content);
 				respMessage = MessageUtil.textMessageToXml(textMessage);
 			}
 
 			// 视频消息
 			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VIDEO)) {
 				respContent = "您发送的是视频消息！";
-				textMessage.setContent(respContent);
+				textMessage.setContent(respContent + content);
 				respMessage = MessageUtil.textMessageToXml(textMessage);
 			}
 
 			// 地理位置消息
 			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_LOCATION)) {
 				respContent = "您发送的是地理位置消息！";
-				textMessage.setContent(respContent);
+				textMessage.setContent(respContent + content);
 				respMessage = MessageUtil.textMessageToXml(textMessage);
 			}
 
 			// 链接消息
 			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_LINK)) {
 				respContent = "您发送的是链接消息！";
-				textMessage.setContent(respContent);
+				textMessage.setContent(respContent + content);
 				respMessage = MessageUtil.textMessageToXml(textMessage);
 			}
 

@@ -5,8 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import com.goldbee.luckdraw.enums.BaseScanPackagesConstant;
-import com.goldbee.luckdraw.enums.MapperScanPackagesConstant;
+import com.goldbee.luckdraw.constant.enums.BaseScanPackagesConstant;
+import com.goldbee.luckdraw.constant.enums.MapperScanPackagesConstant;
+
+
 
 @SpringBootApplication
 @ComponentScan(basePackages={BaseScanPackagesConstant.BUSINESS_BASEPACKAGE})
