@@ -9,11 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.goldbee.luckdraw.constant.CommonConstant;
+import com.goldbee.luckdraw.entity.Material;
 import com.goldbee.luckdraw.entity.MessageInfo;
 import com.goldbee.luckdraw.entity.TextMessage;
 import com.goldbee.luckdraw.service.MessageService;
 import com.goldbee.luckdraw.service.UsersService;
 import com.goldbee.luckdraw.utils.MessageUtil;
+import com.goldbee.luckdraw.utils.WechatUtils;
+
+import net.sf.json.JSONObject;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -133,11 +138,22 @@ public class MessageServiceImpl implements MessageService {
 					String eventKey=map.get("EventKey");
 					if(eventKey.equals("luckdraw")) {
 						usersService.saveUserInfo(fromUserName);
-						respContent = "恭喜！！年后报名成功！！";
+						respContent = "恭喜！！年会报名成功！！";
 						textMessage.setContent(respContent);
 						respMessage = MessageUtil.textMessageToXml(textMessage);
 	
 					}
+					//公司动态
+					if(eventKey.equals("company")) {
+						Material material = new Material();
+						material.setType(MessageUtil.REQ_MESSAGE_TYPE_IMAGE);
+						material.setOffset(1);
+						material.setCount(10);
+						String access_token = WechatUtils.getAccessToken(CommonConstant.grant_type, CommonConstant.appId, CommonConstant.appsecret);
+						WechatUtils.getBatchgetMaterial(access_token, JSONObject.fromObject(material).toString());
+								
+					}
+					
 			
 					
 					System.out.println(eventKey);
