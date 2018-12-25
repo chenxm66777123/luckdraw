@@ -61,8 +61,11 @@ public class MessageServiceImpl implements MessageService {
 
 			// 文本消息
 			if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
-				usersService.saveUserInfo(fromUserName);
-				respContent = "您发送的是文本消息！";
+				respContent = "有了人海，相遇才显得那么意外。/握手\r\n" + 
+						"\r\n" + 
+						"您想了解什么呢？可以直接给小编留言哦~/转圈/转圈/转圈\r\n" + 
+						"\r\n" + 
+						"小编一定知无不言言无不尽~/飞吻/飞吻/飞吻";
 				textMessage.setContent(respContent + content);
 				respMessage = MessageUtil.textMessageToXml(textMessage);
 			}
@@ -127,13 +130,20 @@ public class MessageServiceImpl implements MessageService {
 				else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
 
 					// 事件KEY值，与创建自定义菜单时指定的KEY值对应
-					// String eventKey=map.get("EventKey");
-
+					String eventKey=map.get("EventKey");
+					if(eventKey.equals("luckdraw")) {
+						usersService.saveUserInfo(fromUserName);
+						respContent = "恭喜！！年后报名成功！！";
+						textMessage.setContent(respContent);
+						respMessage = MessageUtil.textMessageToXml(textMessage);
+	
+					}
+			
+					
+					System.out.println(eventKey);
 				}
 				// 自定义菜单（(自定义菜单URl视图)）
 				else if (eventType.equals(MessageUtil.EVENT_TYPE_VIEW)) {
-					respContent = "您发送的是图片消息！";
-					textMessage.setContent(respContent + content);
 					respMessage = MessageUtil.textMessageToXml(textMessage);
 				}
 			}

@@ -136,7 +136,7 @@ public class RequestUtils {
 	 * @Date 2018年12月23日
 	 * @version 1.0.0
 	 */
-    public static JSONObject sendHttpJsonMsg(String sendJosn, String path,int timeOut) {
+    public static JSONObject sendPostForJson(String sendJosn, String path,int timeOut) {
 		int retryCount = 1;
 
 		try {

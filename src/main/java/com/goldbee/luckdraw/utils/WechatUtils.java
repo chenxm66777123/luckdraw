@@ -1,6 +1,6 @@
 package com.goldbee.luckdraw.utils;
 
-import com.alibaba.fastjson.JSONObject;
+import net.sf.json.JSONObject;
 
 /**
  * @Description 微信工具类
@@ -24,7 +24,7 @@ public class WechatUtils {
 		String msg = RequestUtils.sendGet(url, null);
 		System.out.println(msg);
 		//转为Json格式
-		JSONObject json = JSONObject.parseObject(msg);
+		JSONObject json = JSONObject.fromObject(msg);
 		String access_token = json.getString("access_token");
 		return access_token;
 	 }
@@ -43,7 +43,27 @@ public class WechatUtils {
 			String msg = RequestUtils.sendGet(url, null);
 			System.out.println(msg);
 			//转为Json格式
-			JSONObject json = JSONObject.parseObject(msg);
+			JSONObject json = JSONObject.fromObject(msg);
 			return json;
 	}
+	
+	
+	/**
+	 * @Description 获取素材列表返回Json
+	 * @author chenxm66777123
+	 * @Date 2018年12月23日
+	 * @version 1.0.0
+	 */
+	public static JSONObject getBatchgetMaterial(String access_token,String params) {
+			//获取用户信息接口
+			String url = "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token="+access_token+"";
+			//请求返回消息
+			JSONObject json = RequestUtils.sendPostForJson(params, url, 0);			
+			System.out.println(json);
+			//转为Json格式
+			return json;
+	}
+	
+	
+	
 }

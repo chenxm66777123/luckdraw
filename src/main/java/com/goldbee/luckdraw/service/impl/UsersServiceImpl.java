@@ -6,7 +6,6 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.goldbee.luckdraw.constant.CommonConstant;
 import com.goldbee.luckdraw.constant.enums.ResCodeEnum;
@@ -15,6 +14,8 @@ import com.goldbee.luckdraw.dao.mapper.UsersMapper;
 import com.goldbee.luckdraw.entity.Users;
 import com.goldbee.luckdraw.service.UsersService;
 import com.goldbee.luckdraw.utils.WechatUtils;
+
+import net.sf.json.JSONObject;
 
 /**
  * <p>

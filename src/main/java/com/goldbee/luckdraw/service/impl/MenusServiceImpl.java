@@ -50,7 +50,7 @@ public class MenusServiceImpl extends ServiceImpl<MenusMapper, Menus> implements
 		String accessToken = WechatUtils.getAccessToken(CommonConstant.grant_type, CommonConstant.appId, CommonConstant.appsecret);
 		String url = CommonConstant.CTRATE_MENU_URL.replaceAll("ACCESS_TOKEN", accessToken);
 		String menu = initMenu();
-		JSONObject json = RequestUtils.sendHttpJsonMsg(menu, url, 0);
+		JSONObject json = RequestUtils.sendPostForJson(menu, url, 0);
 		if (json != null) {
 			result = json.getInt("errcode");
 		}
