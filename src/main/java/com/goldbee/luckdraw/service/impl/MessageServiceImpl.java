@@ -66,7 +66,7 @@ public class MessageServiceImpl implements MessageService {
 						"您想了解什么呢？可以直接给小编留言哦~/转圈/转圈/转圈\r\n" + 
 						"\r\n" + 
 						"小编一定知无不言言无不尽~/飞吻/飞吻/飞吻";
-				textMessage.setContent(respContent + content);
+				textMessage.setContent(respContent);
 				respMessage = MessageUtil.textMessageToXml(textMessage);
 			}
 
