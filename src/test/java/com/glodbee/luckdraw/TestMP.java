@@ -34,7 +34,7 @@ public class TestMP {
 		DataSourceConfig  dsConfig  = new DataSourceConfig();
 		dsConfig.setDbType(DbType.MYSQL)  // 设置数据库类型
 				.setDriverName("com.mysql.jdbc.Driver")
-				.setUrl("jdbc:mysql://127.0.0.1:3306/luckdraw?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&verifyServerCertificate=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC")
+				.setUrl("jdbc:mysql://127.0.0.1:3306/supply_chain_finance?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&verifyServerCertificate=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC")
 				.setUsername("root")
 				.setPassword("root");
 		 
@@ -44,16 +44,41 @@ public class TestMP {
 				.setDbColumnUnderline(true)  // 指定表名 字段名是否使用下划线
 				.setNaming(NamingStrategy.underline_to_camel) // 数据库表映射到实体的命名策略
 				.setTablePrefix("t_")
-				.setInclude("access_token","menus");  // 生成的表
+				.setInclude("company_base_info"
+						,"company_branches"
+						,"company_changerecords"
+						,"company_companyproducts"
+						,"company_companytaxcredititems"
+						,"company_contactinfo"
+						,"company_employees"
+						,"company_enterpriselab"
+						,"company_exceptions"
+						,"company_industry"
+						,"company_judgmentdoc"
+						,"company_liquidation"
+						,"company_mpledge"
+						,"company_opexception"
+						,"company_originalname"
+						,"company_partners"
+						,"company_penalty"
+						,"company_penaltycreditchina"
+						,"company_permissioneciinfo"
+						,"company_permissioninfo"
+						,"company_pledge"
+						,"company_seriousviolation"
+						,"company_shixinitems"
+						,"company_spotcheck"
+						,"company_zhixingitems"
+						);  // 生成的表
 
 
 		//4. 包名策略配置 
 		PackageConfig pkConfig = new PackageConfig();
-		pkConfig.setParent("com.goldbee.luckdraw")
+		pkConfig.setParent("com.bee.supply.chain.finance.common")
 		                .setMapper("dao.mapper")
 						.setService("service")
 						.setController("controller")
-						.setEntity("entity")
+						.setEntity("entity.thirdInterface")
 						.setXml("dao.mapper");
 		
 		//5. 整合配置
