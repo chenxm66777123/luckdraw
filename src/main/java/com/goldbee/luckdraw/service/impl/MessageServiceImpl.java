@@ -136,13 +136,13 @@ public class MessageServiceImpl implements MessageService {
 
 					// 事件KEY值，与创建自定义菜单时指定的KEY值对应
 					String eventKey=map.get("EventKey");
-					if(eventKey.equals("luckdraw")) {
-						usersService.saveUserInfo(fromUserName);
-						respContent = "恭喜！！年会报名成功！！";
-						textMessage.setContent(respContent);
-						respMessage = MessageUtil.textMessageToXml(textMessage);
-	
-					}
+//					if(eventKey.equals("luckdraw")) {
+//						usersService.saveUserInfo(fromUserName);
+//						respContent = "恭喜！！年会报名成功！！";
+//						textMessage.setContent(respContent);
+//						respMessage = MessageUtil.textMessageToXml(textMessage);
+//	
+//					}
 					//公司动态
 					if(eventKey.equals("company")) {
 						Material material = new Material();
@@ -153,14 +153,33 @@ public class MessageServiceImpl implements MessageService {
 						WechatUtils.getBatchgetMaterial(access_token, JSONObject.fromObject(material).toString());
 								
 					}
-					
-			
-					
-					System.out.println(eventKey);
 				}
 				// 自定义菜单（(自定义菜单URl视图)）
 				else if (eventType.equals(MessageUtil.EVENT_TYPE_VIEW)) {
-					respMessage = MessageUtil.textMessageToXml(textMessage);
+					
+					String eventKey=map.get("EventKey");
+					//年会报名入口
+					if(eventKey.equals("http://luck.beesrv.com:3000/index.html")) {
+						String access_token = WechatUtils.getAccessToken(CommonConstant.grant_type, CommonConstant.appId, CommonConstant.appsecret);
+						JSONObject json = WechatUtils.getUserInfoByOpenId(access_token, fromUserName);
+						//openid
+						String openid = json.getString("openid");
+						//头像地址
+						String headimgurl = json.getString("headimgurl");
+						//微信昵称
+						String nickname = json.getString("nickname");
+						//微信昵称
+						String sex = json.getString("sex");
+						
+						StringBuffer strBuffer = new StringBuffer(eventKey);
+						strBuffer.append("?nickname="+nickname+"");
+						strBuffer.append("&headimgurl="+headimgurl+"");
+						strBuffer.append("&openid="+openid+"");
+						strBuffer.append("&sex="+sex+"");
+						map.put("EventKey", strBuffer.toString());
+						usersService.saveUserInfo(json);
+					}
+					
 				}
 			}
 		} catch (Exception e) {

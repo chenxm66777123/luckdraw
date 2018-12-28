@@ -44,31 +44,11 @@ public class TestMP {
 				.setDbColumnUnderline(true)  // 指定表名 字段名是否使用下划线
 				.setNaming(NamingStrategy.underline_to_camel) // 数据库表映射到实体的命名策略
 				.setTablePrefix("t_")
-				.setInclude("company_base_info"
-						,"company_branches"
-						,"company_changerecords"
-						,"company_companyproducts"
-						,"company_companytaxcredititems"
-						,"company_contactinfo"
-						,"company_employees"
-						,"company_enterpriselab"
-						,"company_exceptions"
-						,"company_industry"
-						,"company_judgmentdoc"
-						,"company_liquidation"
-						,"company_mpledge"
-						,"company_opexception"
-						,"company_originalname"
-						,"company_partners"
-						,"company_penalty"
-						,"company_penaltycreditchina"
-						,"company_permissioneciinfo"
-						,"company_permissioninfo"
-						,"company_pledge"
-						,"company_seriousviolation"
-						,"company_shixinitems"
-						,"company_spotcheck"
-						,"company_zhixingitems"
+				.setInclude("lose_credit_list"
+						,"top_company"
+						,"import_company"
+						,"public_company"
+						,"core_company"
 						);  // 生成的表
 
 
