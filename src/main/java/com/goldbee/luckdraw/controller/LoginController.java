@@ -2,29 +2,37 @@ package com.goldbee.luckdraw.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.goldbee.luckdraw.constant.CommonConstant;
 import com.goldbee.luckdraw.service.MessageService;
+import com.goldbee.luckdraw.service.UsersService;
 import com.goldbee.luckdraw.utils.CheckUtil;
 import com.goldbee.luckdraw.utils.RequestUtils;
+import com.goldbee.luckdraw.utils.WechatUtils;
 
 import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONObject;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class LoginController {
 
 	@Autowired
 	private MessageService messageService;
 
+	@Autowired
+	private UsersService usersService;
+	
 	@GetMapping(value = "wx")
 	@ApiOperation(value = "微信公众号开发者模式接入接口", notes = "微信公众号开发者模式接入接口")
 	public void login(HttpServletRequest request, HttpServletResponse response) {
@@ -69,20 +77,39 @@ public class LoginController {
 	 * @Date 2018年12月27日
 	 * @version 1.0.0
 	 */
-	@GetMapping(value = "getOpenIdByCode")
-	public void getOpenIdByCode(HttpServletRequest request) throws IOException {
+	@GetMapping(value = "getCode")
+	public String getCode(HttpServletRequest request,HttpServletResponse response,String code) throws IOException {
 		request.setCharacterEncoding("UTF-8");
 		String openid = "";
 		// 1 .获取参数code
-		String code = request.getParameter("code");
 		// 2. 根据code获取向微信官方api发请求，获取当前微信用户的json数据
 		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + CommonConstant.appId + "&secret="
 				+ CommonConstant.appsecret + "&code=" + code + "&grant_type=authorization_code";
 		JSONObject wxUser = RequestUtils.sendPostForJson("", url, 300);
 		// 3. 获取json数据中的openid
 		openid = wxUser.getString("openid");
-		System.out.println(openid);
-
+		
+		String access_token = WechatUtils.getAccessToken(CommonConstant.grant_type, CommonConstant.appId, CommonConstant.appsecret);
+		
+		JSONObject json = WechatUtils.getUserInfoByOpenId(access_token, openid);
+		//头像地址
+		String headimgurl = json.getString("headimgurl");
+		//微信昵称
+		String nickname = json.getString("nickname");
+		//微信昵称
+		String sex = json.getString("sex");
+		
+		usersService.saveUserInfo(json);
+		String redirectUrl = "http://luck.beesrv.com:3000/index.html";
+		
+		StringBuffer strBuffer = new StringBuffer(redirectUrl);
+		strBuffer.append("?nickname="+URLEncoder.encode(nickname, "UTF-8") +"");
+		strBuffer.append("&headimgurl="+URLEncoder.encode(headimgurl, "UTF-8")+"");
+		strBuffer.append("&openid="+URLEncoder.encode(openid, "UTF-8")+"");
+		strBuffer.append("&sex="+URLEncoder.encode(sex, "UTF-8")+"");
+		System.out.println(strBuffer.toString());
+		response.sendRedirect(strBuffer.toString());
+		return "SUCCESS";
 	}
 
 }

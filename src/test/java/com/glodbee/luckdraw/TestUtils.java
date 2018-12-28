@@ -6,7 +6,7 @@ public class TestUtils {
 
 	 
 	public static void main(String[] args) {
-		String s = URLEncoder.encode("http://6ff9b899.ngrok.io/luckdraw/getOpenIdByCode");
+		String s = URLEncoder.encode("http://luck.beesrv.com:3000/index.html");
 		System.out.println(s);
 	}
 }

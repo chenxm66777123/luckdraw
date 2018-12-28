@@ -2,6 +2,7 @@ package com.goldbee.luckdraw.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ import io.swagger.annotations.ApiOperation;
  * @since 2018-12-23
  */
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/menus")
 public class MenusController {
 

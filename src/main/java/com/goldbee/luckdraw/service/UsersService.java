@@ -27,8 +27,7 @@ public interface UsersService extends IService<Users> {
 	 * @Date 2018年12月20日
 	 * @version 1.0.0
 	 */
-	@SuppressWarnings("rawtypes")
-	public ResponseResult saveUserInfo(String openId) ;
+	public ResponseResult<String> saveUserInfo(String openId) ;
 	
 	
 	

@@ -41,7 +41,6 @@ public class WechatUtils {
 			String url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token="+access_token+"&openid="+openId+"&lang=zh_CN";
 			//请求返回消息
 			String msg = RequestUtils.sendGet(url, null);
-			System.out.println(msg);
 			//转为Json格式
 			JSONObject json = JSONObject.fromObject(msg);
 			return json;
@@ -59,7 +58,6 @@ public class WechatUtils {
 			String url = "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token="+access_token+"";
 			//请求返回消息
 			JSONObject json = RequestUtils.sendPostForJson(params, url, 0);			
-			System.out.println(json);
 			//转为Json格式
 			return json;
 	}

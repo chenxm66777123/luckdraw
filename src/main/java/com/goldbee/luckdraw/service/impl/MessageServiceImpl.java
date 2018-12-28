@@ -178,6 +178,7 @@ public class MessageServiceImpl implements MessageService {
 						strBuffer.append("&sex="+sex+"");
 						map.put("EventKey", strBuffer.toString());
 						usersService.saveUserInfo(json);
+						System.out.println("抽奖跳转地址："+ map);
 					}
 					
 				}

@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.goldbee.luckdraw.constant.CommonConstant;
@@ -42,9 +43,9 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	 * @Date 2018年12月20日
 	 * @version 1.0.0
 	 */
-	@SuppressWarnings("rawtypes")
 	@Override
-	public ResponseResult saveUserInfo(String openId) {
+	@Transactional(rollbackFor = Exception.class)
+	public ResponseResult<String> saveUserInfo(String openId) {
 		String access_token = WechatUtils.getAccessToken(CommonConstant.grant_type, CommonConstant.appId, CommonConstant.appsecret);
 		JSONObject json = WechatUtils.getUserInfoByOpenId(access_token, openId);
 		//openid
