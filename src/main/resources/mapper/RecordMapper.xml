@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goldbee.luckdraw.dao.mapper.RecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.goldbee.luckdraw.entity.Record">
+        <id column="id" property="id" />
+        <result column="award_openid" property="awardOpenid" />
+        <result column="award_name" property="awardName" />
+        <result column="award_level" property="awardLevel" />
+        <result column="create_time" property="createTime" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, award_openid, award_name, award_level, create_time, status
+    </sql>
+    
+    <insert id="batchSaveRecords" parameterType="java.util.List">
+    	INSERT INTO record
+    	(
+    		award_openid,
+ 	  		award_name,
+     		award_level
+      	)	
+   		VALUES
+    	<foreach collection="list" item="recordRQList" separator=",">
+        (
+    		#{recordRQList.awardOpenid,jdbcType=VARCHAR},
+      		#{recordRQList.awardName,jdbcType=VARCHAR},
+      		#{recordRQList.awardLevel,jdbcType=VARCHAR}
+      	)
+    	</foreach>
+	</insert>
+
+</mapper>

@@ -34,7 +34,7 @@ public class TestMP {
 		DataSourceConfig  dsConfig  = new DataSourceConfig();
 		dsConfig.setDbType(DbType.MYSQL)  // 设置数据库类型
 				.setDriverName("com.mysql.jdbc.Driver")
-				.setUrl("jdbc:mysql://127.0.0.1:3306/supply_chain_finance?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&verifyServerCertificate=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC")
+				.setUrl("jdbc:mysql://127.0.0.1:3306/luckdraw?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&verifyServerCertificate=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC")
 				.setUsername("root")
 				.setPassword("root");
 		 
@@ -44,21 +44,17 @@ public class TestMP {
 				.setDbColumnUnderline(true)  // 指定表名 字段名是否使用下划线
 				.setNaming(NamingStrategy.underline_to_camel) // 数据库表映射到实体的命名策略
 				.setTablePrefix("t_")
-				.setInclude("lose_credit_list"
-						,"top_company"
-						,"import_company"
-						,"public_company"
-						,"core_company"
+				.setInclude("record"
 						);  // 生成的表
 
 
 		//4. 包名策略配置 
 		PackageConfig pkConfig = new PackageConfig();
-		pkConfig.setParent("com.bee.supply.chain.finance.common")
+		pkConfig.setParent("com.goldbee.luckdraw")
 		                .setMapper("dao.mapper")
 						.setService("service")
 						.setController("controller")
-						.setEntity("entity.thirdInterface")
+						.setEntity("entity")
 						.setXml("dao.mapper");
 		
 		//5. 整合配置
