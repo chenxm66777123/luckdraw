@@ -1,6 +1,5 @@
 package com.goldbee.luckdraw.service.impl;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -32,11 +31,9 @@ import net.sf.json.JSONObject;
 @Service
 public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements UsersService {
 
-	
-	
 	@Autowired
 	private UsersMapper usersMapper;
-	
+
 	/**
 	 * @Description 通过openid获取用户信息
 	 * @author chenxm66777123
@@ -46,20 +43,21 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public ResponseResult<String> saveUserInfo(String openId) {
-		String access_token = WechatUtils.getAccessToken(CommonConstant.grant_type, CommonConstant.appId, CommonConstant.appsecret);
+		String access_token = WechatUtils.getAccessToken(CommonConstant.grant_type, CommonConstant.appId,
+				CommonConstant.appsecret);
 		JSONObject json = WechatUtils.getUserInfoByOpenId(access_token, openId);
-		//openid
+		// openid
 		String openid = json.getString("openid");
-		//头像地址
+		// 头像地址
 		String headimgurl = json.getString("headimgurl");
-		//微信昵称
+		// 微信昵称
 		String nickname = json.getString("nickname");
-		//微信昵称
+		// 微信昵称
 		String sex = json.getString("sex");
 
 		Users returnUsers = usersMapper.selectOne(new Users().setOpenid(openid));
-		//已经存在不在添加
-		if(returnUsers == null) {
+		// 已经存在不在添加
+		if (returnUsers == null) {
 			Users user = new Users();
 			user.setOpenid(openid);
 			user.setNickName(nickname);
@@ -67,7 +65,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 			user.setSex(sex);
 			user.setCreateTime(new Date());
 			usersMapper.insert(user);
-		}else {
+		} else {
 			returnUsers.setNickName(nickname);
 			returnUsers.setHeadimgurl(headimgurl);
 			returnUsers.setSex(sex);
@@ -85,18 +83,19 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	 */
 	@Override
 	public ResponseResult<String> saveUserInfo(JSONObject json) {
-		//openid
+
+		// openid
 		String openid = json.getString("openid");
-		//头像地址
+		// 头像地址
 		String headimgurl = json.getString("headimgurl");
-		//微信昵称
+		// 微信昵称
 		String nickname = json.getString("nickname");
-		//微信昵称
+		// 微信昵称
 		String sex = json.getString("sex");
-		
+
 		Users returnUsers = usersMapper.selectOne(new Users().setOpenid(openid));
-		//已经存在不在添加
-		if(returnUsers == null) {
+		// 已经存在不在添加
+		if (returnUsers == null) {
 			Users user = new Users();
 			user.setOpenid(openid);
 			user.setNickName(nickname);
@@ -104,13 +103,14 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 			user.setSex(sex);
 			user.setCreateTime(new Date());
 			usersMapper.insert(user);
-		}else {
+		} else {
 			returnUsers.setNickName(nickname);
 			returnUsers.setHeadimgurl(headimgurl);
 			returnUsers.setSex(sex);
 			returnUsers.setCreateTime(new Date());
 			usersMapper.updateById(returnUsers);
 		}
+
 		return ResponseResult.buildResponseResult(ResCodeEnum.SUCCESS);
 	}
 
@@ -122,8 +122,8 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	 */
 	@Override
 	public ResponseResult<List<Users>> getAllUsers() {
-		List<Users> userList =	usersMapper.selectList(null);
-		return ResponseResult.buildResponseResult(ResCodeEnum.SUCCESS,userList);
+		List<Users> userList = usersMapper.selectList(null);
+		return ResponseResult.buildResponseResult(ResCodeEnum.SUCCESS, userList);
 	}
 
 	/**
@@ -135,14 +135,14 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	@Override
 	public ResponseResult<String> updateUserByOpenId(UserRQ userRQ) {
 		Users returnUsers = usersMapper.selectOne(new Users().setOpenid(userRQ.getOpenid()));
-		//已经存在不在添加
-		if(returnUsers == null) {
+		// 已经存在不在添加
+		if (returnUsers == null) {
 			Users user = new Users();
 			BeanUtils.copyProperties(userRQ, user);
 			user.setCreateTime(new Date());
 			usersMapper.insert(user);
-		}else {
-			//设置真实姓名
+		} else {
+			// 设置真实姓名
 			returnUsers.setRealName(userRQ.getRealName());
 			returnUsers.setCreateTime(new Date());
 			usersMapper.updateById(returnUsers);

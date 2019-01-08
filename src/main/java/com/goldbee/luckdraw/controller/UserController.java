@@ -25,6 +25,7 @@ import com.goldbee.luckdraw.utils.MessageUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONObject;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -74,5 +75,12 @@ public class UserController {
 		} finally {
 			out.close();
 		}
+	}
+	
+	
+	@PostMapping(value = "saveUserInfo")
+	@ApiOperation(value = "保存用户信息", notes = "保存用户信息")
+	public ResponseResult<String> saveUserInfo(@RequestBody() JSONObject json){
+		return usersService.saveUserInfo(json);
 	}
 }

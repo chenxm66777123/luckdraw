@@ -13,9 +13,9 @@ public class CommonConstant {
 
 	public static final String grant_type = "client_credential";
 	 
-	public static final String appId = "wx590602ef804f391d";
+	public static final String appId = "wx460610bc60b3d542";
 
-	public static final String appsecret = "91c2ea3d0a52fbcaeeeb516a2596dc77";
+	public static final String appsecret = "6e42d05d32ba169f94de47cfe08c8508";
 	
 	public static final String CTRATE_MENU_URL  = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
 
