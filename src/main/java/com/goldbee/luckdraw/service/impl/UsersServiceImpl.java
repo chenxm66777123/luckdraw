@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.goldbee.luckdraw.constant.CommonConstant;
 import com.goldbee.luckdraw.constant.enums.ResCodeEnum;
@@ -122,7 +123,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	 */
 	@Override
 	public ResponseResult<List<Users>> getAllUsers() {
-		List<Users> userList = usersMapper.selectList(null);
+		List<Users> userList = usersMapper.selectList(new EntityWrapper<>(new Users()).isNotNull("real_name"));
 		return ResponseResult.buildResponseResult(ResCodeEnum.SUCCESS, userList);
 	}
 

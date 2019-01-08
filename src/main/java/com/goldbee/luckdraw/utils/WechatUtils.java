@@ -22,7 +22,7 @@ public class WechatUtils {
 		String url ="https://api.weixin.qq.com/sns/token?grant_type="+grant_type+"&appid="+appid+"&secret="+secret+"";
 		//请求返回消息
 		String msg = RequestUtils.sendGet(url, null);
-		System.out.println(msg);
+		System.out.println("accressToken-----------："+msg);
 		//转为Json格式
 		JSONObject json = JSONObject.fromObject(msg);
 		String access_token = json.getString("access_token");
@@ -41,7 +41,7 @@ public class WechatUtils {
 			String url = "https://api.weixin.qq.com/sns/userinfo?access_token="+access_token+"&openid="+openId+"&lang=zh_CN";
 			//请求返回消息
 			String msg = RequestUtils.sendGet(url, null);
-			System.out.println("msg信息" + msg);
+			System.out.println("msg信息--------------:" + msg);
 			//转为Json格式
 			JSONObject json = JSONObject.fromObject(msg);
 			return json;

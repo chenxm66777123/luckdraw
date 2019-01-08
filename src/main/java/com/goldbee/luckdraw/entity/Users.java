@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
@@ -26,6 +27,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @NoArgsConstructor
 @TableName("users")
+@ToString
 public class Users extends Model<Users> {
 
 	private static final long serialVersionUID = 1L;

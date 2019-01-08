@@ -79,9 +79,10 @@ public class LoginController {
 	 * @version 1.0.0
 	 */
 	@GetMapping(value = "getCode")
+	@ApiOperation(value = "网页授权登录获取code跳转签到", notes = "网页授权登录获取code跳转签到")
 	public String getCode(HttpServletRequest request,HttpServletResponse response,String code) throws IOException {
 		request.setCharacterEncoding("UTF-8");
-		System.out.println("code信息" + code);
+		System.out.println("code信息--------------:" + code);
 
 		String openid = "";
 		// 1 .获取参数code
@@ -89,17 +90,13 @@ public class LoginController {
 		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + CommonConstant.appId + "&secret="
 				+ CommonConstant.appsecret + "&code=" + code + "&grant_type=authorization_code";
 		JSONObject wxUser = RequestUtils.sendPostForJson("", url, 300);
-		System.out.println("wxUser信息"+wxUser);
+		System.out.println("wxUser信息--------------:"+wxUser);
 		// 3. 获取json数据中的openid
 		openid = wxUser.getString("openid");
 		String access_token = wxUser.getString("access_token");
-		System.out.println("openid信息" + openid);
-
-		System.out.println("openid" + openid);
+		System.out.println("openid信息--------------:" + openid);
 		//String access_token = WechatUtils.getAccessToken(CommonConstant.grant_type, CommonConstant.appId, CommonConstant.appsecret);
-		
 		JSONObject json = WechatUtils.getUserInfoByOpenId(access_token, openid);
-		System.out.println("json信息" + json);
 		//头像地址
 		String headimgurl = json.getString("headimgurl");
 		//微信昵称
@@ -108,6 +105,7 @@ public class LoginController {
 		String sex = json.getString("sex");
 		
 		usersService.saveUserInfo(json);
+		//签到地址
 		String redirectUrl = "http://luck.beesrv.com:3000/index.html";
 		
 		StringBuffer strBuffer = new StringBuffer(redirectUrl);
@@ -115,13 +113,13 @@ public class LoginController {
 		strBuffer.append("&headimgurl="+URLEncoder.encode(headimgurl, "UTF-8")+"");
 		strBuffer.append("&openid="+URLEncoder.encode(openid, "UTF-8")+"");
 		strBuffer.append("&sex="+URLEncoder.encode(sex, "UTF-8")+"");
-		System.out.println(strBuffer.toString());
 		response.sendRedirect(strBuffer.toString());
 		return "SUCCESS";
 	}
 	
 
     @RequestMapping({"MP_verify_3TZXxH6GJ7V3vBQa.txt"})
+	@ApiOperation(value = "网页授权回调验证", notes = "网页授权回调验证")
     private void returnConfigFile(HttpServletResponse response) {
 		// 在响应消息（回复消息给用户）时，也将编码方式设置为UTF-8，原理同上；
 		response.setCharacterEncoding("UTF-8");
