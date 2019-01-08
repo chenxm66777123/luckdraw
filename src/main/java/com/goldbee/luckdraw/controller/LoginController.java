@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.goldbee.luckdraw.constant.CommonConstant;
@@ -80,18 +81,25 @@ public class LoginController {
 	@GetMapping(value = "getCode")
 	public String getCode(HttpServletRequest request,HttpServletResponse response,String code) throws IOException {
 		request.setCharacterEncoding("UTF-8");
+		System.out.println("code信息" + code);
+
 		String openid = "";
 		// 1 .获取参数code
 		// 2. 根据code获取向微信官方api发请求，获取当前微信用户的json数据
 		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + CommonConstant.appId + "&secret="
 				+ CommonConstant.appsecret + "&code=" + code + "&grant_type=authorization_code";
 		JSONObject wxUser = RequestUtils.sendPostForJson("", url, 300);
+		System.out.println("wxUser信息"+wxUser);
 		// 3. 获取json数据中的openid
 		openid = wxUser.getString("openid");
-		
-		String access_token = WechatUtils.getAccessToken(CommonConstant.grant_type, CommonConstant.appId, CommonConstant.appsecret);
+		String access_token = wxUser.getString("access_token");
+		System.out.println("openid信息" + openid);
+
+		System.out.println("openid" + openid);
+		//String access_token = WechatUtils.getAccessToken(CommonConstant.grant_type, CommonConstant.appId, CommonConstant.appsecret);
 		
 		JSONObject json = WechatUtils.getUserInfoByOpenId(access_token, openid);
+		System.out.println("json信息" + json);
 		//头像地址
 		String headimgurl = json.getString("headimgurl");
 		//微信昵称
@@ -111,5 +119,22 @@ public class LoginController {
 		response.sendRedirect(strBuffer.toString());
 		return "SUCCESS";
 	}
+	
+
+    @RequestMapping({"MP_verify_3TZXxH6GJ7V3vBQa.txt"})
+    private void returnConfigFile(HttpServletResponse response) {
+		// 在响应消息（回复消息给用户）时，也将编码方式设置为UTF-8，原理同上；
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+			String respXml = "3TZXxH6GJ7V3vBQa";
+			out.println(respXml);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			out.close();
+		}
+    }
 
 }

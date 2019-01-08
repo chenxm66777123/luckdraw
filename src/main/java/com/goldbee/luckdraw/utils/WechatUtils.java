@@ -19,7 +19,7 @@ public class WechatUtils {
 	 */
 	 public static String getAccessToken(String grant_type,String appid,String secret) {
 		//获取accesstoken接口
-		String url ="https://api.weixin.qq.com/cgi-bin/token?grant_type="+grant_type+"&appid="+appid+"&secret="+secret+"";
+		String url ="https://api.weixin.qq.com/sns/token?grant_type="+grant_type+"&appid="+appid+"&secret="+secret+"";
 		//请求返回消息
 		String msg = RequestUtils.sendGet(url, null);
 		System.out.println(msg);
@@ -37,10 +37,11 @@ public class WechatUtils {
 	 * @version 1.0.0
 	 */
 	public static JSONObject getUserInfoByOpenId(String access_token,String openId) {
-			//获取用户信息接口
-			String url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token="+access_token+"&openid="+openId+"&lang=zh_CN";
+			//获取用户信息接口https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+			String url = "https://api.weixin.qq.com/sns/userinfo?access_token="+access_token+"&openid="+openId+"&lang=zh_CN";
 			//请求返回消息
 			String msg = RequestUtils.sendGet(url, null);
+			System.out.println("msg信息" + msg);
 			//转为Json格式
 			JSONObject json = JSONObject.fromObject(msg);
 			return json;
